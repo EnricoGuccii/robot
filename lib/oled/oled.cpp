@@ -5,16 +5,16 @@
 // #include "settings.h"
 // #include "oled.h"
 
-// Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, -1);
 
-// void oled_init() {
+// OLED::OLED() {
+//   Adafruit_SSD1306 display(OLED_WIDTH, OLED_HEIGHT, &Wire, -1);
 //   Wire.begin(SDA_PIN, SCL_PIN);
 //   display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
 //   display.clearDisplay();
 //   display.display();
 // }
 
-// void oled_print(const String& text, int x, int y) {
+// void OLED::print(const String& text, int x, int y) {
 //   display.setTextSize(1);
 //   display.setTextColor(WHITE);
 //   display.setCursor(x, y);
@@ -22,12 +22,12 @@
 //   display.display();
 // }
 
-// void oled_clear() {
+// void OLED::clear() {
 //   display.clearDisplay();
 //   display.display();
 // }
 
-// void oled_drawBox() {
+// void OLED::drawBox() {
 //   display.drawRect(0, 0, 128, 64, WHITE);
 //   display.display();
 // }

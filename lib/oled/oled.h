@@ -2,8 +2,14 @@
 // #include <Adafruit_SSD1306.h>
 // #include "settings.h"
 
-
-// void oled_init();
-// void oled_clear();
-// void oled_print(const String& text, int x, int y);
-// void oled_drawBox();
+// class OLED
+// {
+// public:
+//     OLED();
+//     void clear();
+//     void print(const String &text, int x, int y);
+//     void drawBox();
+//     void setCursor(int x, int y);
+//     void setTextSize(int size);
+//     void showAnimation();
+// };
