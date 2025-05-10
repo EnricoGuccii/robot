@@ -1,27 +1,29 @@
 #include <Arduino.h>
-// #include "oled.h"
+#include "settings.h"
 #include "rgb.h"
+#include "oled.h"
 
-
-// OLED oled;
 RGB rgb;
 
-void setup() {
-  
-  // oled_init();
-  //oled_print("siema", 0, 10);
-  // oled_drawBox();
-   
 
-  // pinMode(IN1, OUTPUT);
-  // pinMode(IN2, OUTPUT);
-
-  // pinMode(IN3, OUTPUT);
-  // pinMode(IN4, OUTPUT);
+void setup()
+{
 }
 
-void loop() {
-
-  
+void loop()
+{
+  // rgb.setColorRGB(255, 0, 0, true); 
+  // delay(1000);
+  // rgb.fadeColor(0, 255, 0, 1000); 
+  // delay(1000);
+  // rgb.blink(3, 500); 
+  // delay(1000);
+  // rgb.breathe(4, 1000); 
+  // rgb.rainbowCycle(8000, 1.0);
+  // rgb.setColorRGB(0, 0, 0, true);
+  // delay(1000); 
+  // rgb.rainbowCycle(8000, 1);
+  // rgb.setColorRGB(0, 0, 0, true);
+  // delay(1000);
+  // rgb.rainbowCycle(8000, 2);
 }
-

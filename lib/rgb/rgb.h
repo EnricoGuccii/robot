@@ -14,8 +14,8 @@ public:
     void setColorRGB(uint8_t red, uint8_t green, uint8_t blue, bool saveColor);
     void fadeColor(uint8_t red, uint8_t green, uint8_t blue, int duration);
     void blink(int cycles, int interval);
-    void breathe(int duration, int interval);
-    void rainbowCycle(int duration);
+    void breathe(int cycles, int period);
+    void rainbowCycle(int duration, float speed);
 
 private:
     int scaleColor(uint8_t val);

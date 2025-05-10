@@ -12,4 +12,7 @@
 //     void setCursor(int x, int y);
 //     void setTextSize(int size);
 //     void showAnimation();
+
+// private:
+//     Adafruit_SSD1306 display;
 // };

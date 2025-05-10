@@ -1,24 +1,41 @@
 #include <Arduino.h>
 #include "settings.h"
 #include "rgb.h"
+#include <math.h>
+
+
+// Kanały PWM (muszą być unikalne)
+#define RED_CHANNEL    0
+#define GREEN_CHANNEL  1
+#define BLUE_CHANNEL   2
+
+// Częstotliwość PWM i rozdzielczość
+#define PWM_FREQ       5000
+#define PWM_RES        10  // 10-bit (0–1023)
 
 int RGB::scaleColor(uint8_t val)
 {
-  return map(val, 0, 255, 0, 1023);
+  return map(val, 0, 255, 0, (1 << PWM_RES) - 1);
 }
 
 RGB::RGB()
 {
-  pinMode(RED_PIN, OUTPUT);
-  pinMode(GREEN_PIN, OUTPUT);
-  pinMode(BLUE_PIN, OUTPUT);
+  ledcSetup(RED_CHANNEL, PWM_FREQ, PWM_RES);
+  ledcAttachPin(RED_PIN, RED_CHANNEL);
+
+  ledcSetup(GREEN_CHANNEL, PWM_FREQ, PWM_RES);
+  ledcAttachPin(GREEN_PIN, GREEN_CHANNEL);
+
+  ledcSetup(BLUE_CHANNEL, PWM_FREQ, PWM_RES);
+  ledcAttachPin(BLUE_PIN, BLUE_CHANNEL);
 }
 
 void RGB::setColorRGB(uint8_t red, uint8_t green, uint8_t blue, bool saveColor = true)
 {
-  analogWrite(RED_PIN, scaleColor(red));
-  analogWrite(GREEN_PIN, scaleColor(green));
-  analogWrite(BLUE_PIN, scaleColor(blue));
+  ledcWrite(RED_CHANNEL, scaleColor(red));
+  ledcWrite(GREEN_CHANNEL, scaleColor(green));
+  ledcWrite(BLUE_CHANNEL, scaleColor(blue));
+
   if (saveColor)
   {
     currentR = red;
@@ -26,6 +43,7 @@ void RGB::setColorRGB(uint8_t red, uint8_t green, uint8_t blue, bool saveColor =
     currentB = blue;
   }
 }
+
 
 void RGB::fadeColor(uint8_t red, uint8_t green, uint8_t blue, int duration)
 {
@@ -57,39 +75,53 @@ void RGB::blink(int cycles, int interval)
   }
 }
 
-void RGB::breathe(int cycles, int interval)
+void RGB::breathe(int cycles, int period)
 {
+  const int steps = 128;  
+  int stepDelay = period / (steps * 2);  
+
   uint8_t baseR = currentR;
   uint8_t baseG = currentG;
   uint8_t baseB = currentB;
 
   for (int c = 0; c < cycles; ++c)
   {
-    for (int i = 0; i <= 255; ++i)
+    for (int i = 0; i <= steps; ++i)
     {
-      setColorRGB(baseR * i / 255, baseG * i / 255, baseB * i / 255, false);
-      delay(interval / 510);
+      float scale = (float)i / steps;
+      setColorRGB(baseR * scale, baseG * scale, baseB * scale, false);
+      delay(stepDelay);
     }
 
-    for (int i = 255; i >= 0; --i)
+
+    for (int i = steps; i >= 0; --i)
     {
-      setColorRGB(baseR * i / 255, baseG * i / 255, baseB * i / 255, false);
-      delay(interval / 510);
+      float scale = (float)i / steps;
+      setColorRGB(baseR * scale, baseG * scale, baseB * scale, false);
+      delay(stepDelay);
     }
   }
 
   setColorRGB(baseR, baseG, baseB);
 }
 
-void RGB::rainbowCycle(int duration)
+
+void RGB::rainbowCycle(int duration, float speed)
 {
-  for (int i = 0; i < 256; i++)
+  // speed (0.1 – slow, 1.0 – normal, 2.0 – fast)
+  const int steps = 256;
+
+  for (int i = 0; i < steps; i++)
   {
-    int red = sin(i * 0.024) * 127 + 128;
-    int green = sin(i * 0.024 + 2) * 127 + 128;
-    int blue = sin(i * 0.024 + 4) * 127 + 128;
-    setColorRGB(red, green, blue);
-    delay(duration / 256);
+    float angle = i * speed * 0.024;
+    int red   = sin(angle) * 127 + 128;
+    int green = sin(angle + 2) * 127 + 128;
+    int blue  = sin(angle + 4) * 127 + 128;
+
+    setColorRGB(red, green, blue, false);
+    delay(duration / steps);
   }
+
   setColorRGB(currentR, currentG, currentB, false);
 }
+
