@@ -14,8 +14,12 @@ int RGB::scaleColor(uint8_t val)
 {
   return map(val, 0, 255, 0, (1 << PWM_RES) - 1);
 }
-
 RGB::RGB()
+    : currentR(0), currentG(0), currentB(0)
+{
+}
+
+void RGB::init()
 {
   ledcSetup(RED_CHANNEL, PWM_FREQ, PWM_RES);
   ledcAttachPin(RED_PIN, RED_CHANNEL);

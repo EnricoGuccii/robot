@@ -4,10 +4,15 @@
 
 #define BUZZER_CHANNEL 3
 #define BUZZER_RESOLUTION 8
+#define BUZZER_FREQ 2000
 
 BUZZER::BUZZER()
 {
-    ledcSetup(BUZZER_CHANNEL, 2000, BUZZER_RESOLUTION);
+}
+
+void BUZZER::init()
+{
+    ledcSetup(BUZZER_CHANNEL, BUZZER_FREQ, BUZZER_RESOLUTION);
     ledcAttachPin(BUZZER_PIN, BUZZER_CHANNEL);
 }
 
@@ -23,7 +28,6 @@ void BUZZER::playTone(uint16_t frequency, uint32_t duration)
 
 void BUZZER::playMelody(const uint16_t melody[][2], size_t length)
 {
-    
     for (size_t i = 0; i < length; i++)
     {
         playTone(melody[i][0], melody[i][1]);

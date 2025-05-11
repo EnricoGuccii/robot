@@ -14,11 +14,22 @@ const int GREEN_PIN = 4;
 const int BLUE_PIN  = 6;
 
 // MOTORS
-// const int IN1 = D7;
-// const int IN2 = D8;
+const int EN12 = 40;
+const int IN1 = 38;
+const int IN2 = 36;
 
-// const int IN3 = D3;
-// const int IN4 = D4;
+
+const int EN34 = 13;
+const int IN3 = 37;
+const int IN4 = 35;
+
+
+
+
+// const int EN34 = 13;
+// const int IN3 = 7;
+// const int IN4 = 5;
+
 
 // BUZZER
-const int BUZZER_PIN = 13;
+const int BUZZER_PIN = 3;
