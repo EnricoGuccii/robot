@@ -2,26 +2,39 @@
 #include "settings.h"
 #include "rgb.h"
 #include "oled.h"
+#include "Buzzer.h"
 
 RGB rgb;
+BUZZER buzzer; 
+
 
 
 void setup()
-{
-}
+{}
 
 void loop()
 {
-  // rgb.setColorRGB(255, 0, 0, true); 
+
+  // buzzer.playMelody(happy, 8);
   // delay(1000);
-  // rgb.fadeColor(0, 255, 0, 1000); 
+  // buzzer.playMelody(anger, 8);
   // delay(1000);
-  // rgb.blink(3, 500); 
+  // buzzer.playMelody(alaarm, 9);
   // delay(1000);
-  // rgb.breathe(4, 1000); 
+  // buzzer.playMelody(surprise, 9);
+  // delay(1000);
+
+  //buzzer.playMelody(melody, 8);                  
+  // rgb.setColorRGB(255, 0, 0, true);
+  // delay(1000);
+  // rgb.fadeColor(0, 255, 0, 1000);
+  // delay(1000);
+  // rgb.blink(3, 500);
+  // delay(1000);
+  // rgb.breathe(4, 1000);
   // rgb.rainbowCycle(8000, 1.0);
   // rgb.setColorRGB(0, 0, 0, true);
-  // delay(1000); 
+  // delay(1000);
   // rgb.rainbowCycle(8000, 1);
   // rgb.setColorRGB(0, 0, 0, true);
   // delay(1000);

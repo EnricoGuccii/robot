@@ -21,4 +21,4 @@ const int BLUE_PIN  = 6;
 // const int IN4 = D4;
 
 // BUZZER
-// const int BUZZER_PIN = 3;
+const int BUZZER_PIN = 13;
