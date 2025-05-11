@@ -123,7 +123,7 @@ void MOTORS::backward(int speed, int duration)
     }
 }
 
-void MOTORS::leftTurn(int speed, int duration)
+void MOTORS::rightTurn(int speed, int duration)
 {
     rightForward(speed);
     leftBackward(speed);
@@ -134,7 +134,7 @@ void MOTORS::leftTurn(int speed, int duration)
     }
 }
 
-void MOTORS::rightTurn(int speed, int duration)
+void MOTORS::leftTurn(int speed, int duration)
 {
     rightBackward(speed);
     leftForward(speed);
