@@ -5,11 +5,11 @@
 #include "settings.h"
 #include "oled.h"
 
-
 OLED::OLED()
-: display(OLED_WIDTH, OLED_HEIGHT, &Wire, -1) {}
+    : display(OLED_WIDTH, OLED_HEIGHT, &Wire, -1) {}
 
-void OLED::init() {
+void OLED::init()
+{
     Wire.begin(SDA_PIN, SCL_PIN);
     display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
     display.clearDisplay();
@@ -17,7 +17,8 @@ void OLED::init() {
     display.setTextColor(SSD1306_WHITE);
 }
 
-void OLED::showMessage(const String& msg, int size, int x, int y) {
+void OLED::showMessage(const String &msg, int size, int x, int y)
+{
     display.clearDisplay();
     display.setCursor(x, y);
     display.setTextSize(size);
@@ -26,20 +27,32 @@ void OLED::showMessage(const String& msg, int size, int x, int y) {
     display.display();
 }
 
-void OLED::drawBitmap(const uint8_t* bitmap) {
+void OLED::drawFullBitmap(const uint8_t *bitmap)
+{
     display.clearDisplay();
     display.drawBitmap(0, 0, bitmap, OLED_WIDTH, OLED_HEIGHT, SSD1306_WHITE);
     display.display();
 }
 
-void OLED::showAnimation(const uint8_t* animation[], int frames, int delayTime) {
-    for (int i = 0; i < frames; i++) {
-        drawBitmap(animation[i]);
-        delay(delayTime);
+void OLED::showAnimation(const byte *frames, int frameCount, int frameWidth, int frameHeight, int frameDelay)
+{
+    int x = 64 - (frameWidth / 2);
+    int y = 32 - (frameHeight / 2);
+
+    for (int i = 0; i < frameCount; i++)
+    {
+        display.clearDisplay();
+        display.drawBitmap(
+            x, y,
+            frames + i * (frameWidth * frameHeight / 8),
+            frameWidth, frameHeight, 1);
+        display.display();
+        delay(frameDelay);
     }
 }
 
-void OLED::clear() {
+void OLED::clear()
+{
     display.clearDisplay();
     display.display();
 }

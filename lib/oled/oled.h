@@ -9,8 +9,8 @@ public:
 
     void init();
     void showMessage(const String& msg,int size = 1 ,int x = 0, int y = 0);
-    void drawBitmap(const uint8_t* bitmap);
-    void showAnimation(const uint8_t* animation[], int frames, int delayTime);
+    void drawFullBitmap(const uint8_t* bitmap);
+    void showAnimation(const byte* frames, int frameCount, int frameWidth, int frameHeight, int frameDelay);
     void clear();
 
 private:
